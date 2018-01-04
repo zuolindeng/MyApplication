@@ -20,7 +20,6 @@ import com.example.apple.myapplication.model.Tb_outaccount;
 
 import java.util.List;
 
-import static com.example.apple.myapplication.activity.Inaccountinfo.FLAG;
 
 /**
  * Created by apple on 2017/12/29.
@@ -30,6 +29,7 @@ public class Showinfo extends AppCompatActivity {
     Button btnflaginfo;
     ListView lvinfo;
     String strType = "";
+    public static final String FLAG = "id";
 
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -41,7 +41,7 @@ public class Showinfo extends AppCompatActivity {
         btnflaginfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Showinfo(R.id.btnflaginfo);
+                ShowInfo(R.id.btnflaginfo);
             }
         });
 
@@ -67,7 +67,7 @@ public class Showinfo extends AppCompatActivity {
         String[] strInfos = null;           //定义字符串数组，用来存储收入信息
         ArrayAdapter<String> arrayAdapter = null;           //创建ArrayAdapter对象
         switch (intType) {              //以intType为条件进行判断
-            case R.id.btnoutinfo:           //如果是btnoutinfo按钮
+            /*case R.id.btnoutinfo:           //如果是btnoutinfo按钮
                 strType="btnoutinfo";           //为strType变量赋值
                 OutaccountDAO outaccountinfo=new OutaccountDAO(Showinfo.this);
                 //获取所有支出信息，并存储到List泛型集合
@@ -78,7 +78,7 @@ public class Showinfo extends AppCompatActivity {
                     strInfos[i]=tb_outaccount.get_id()+"|"+tb_outaccount.getType()+" "+String.valueOf(tb_outaccount. getMoney())+"元 "+tb_outaccount.getTime();
                     i++;
                 }
-                break;
+                break;*/
             case R.id.btnininfo:            //如果是btnininfo按钮
                 strType="btnininfo";            //为strType变量赋值
                 InaccountDAO inaccountinfo=new InaccountDAO(Showinfo.this);             //创建InaccountDAO对象

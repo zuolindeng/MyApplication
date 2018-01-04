@@ -16,7 +16,7 @@ import com.example.apple.myapplication.dao.PwdDAO;
  * Created by apple on 2017/12/29.
  */
 
-public class Login extends AppCompatActivity implements View.OnClickListener{
+public class Login extends AppCompatActivity{
     private EditText txtlogin;
     private Button btnlogin;
     private Button btnclose;
@@ -25,38 +25,39 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        initView();
-    }
-    //初始化控件
-    private void initView(){
+
         txtlogin = (EditText) findViewById(R.id.txtLogin);
         btnlogin = (Button) findViewById(R.id.btnLogin);
         btnclose = (Button) findViewById(R.id.btnClose);
 
-        btnlogin.setOnClickListener(this);
-        btnclose.setOnClickListener(this);
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Login.this, MainActivity.class);           //创建Intent对象
+                PwdDAO pwdDAO=new PwdDAO(Login.this);           //创建PwdDAO对象
+                if((pwdDAO.getCount()==0| pwdDAO.find().getPassword().isEmpty()) && txtlogin.getText().toString(). isEmpty()){          //判断是否有密码及是否输入了密
+                    startActivity(intent);          //启动主Activity
+                }else{
+                    //判断输入的密码是否与数据库中的密码一致
+                    if (pwdDAO.find().getPassword().equals(txtlogin.getText().toString())) {
+                        startActivity(intent);      //启动主Activity
+                    }else{
+                        //弹出信息提示
+                        Toast.makeText(Login.this, "请输入正确的密码！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                txtlogin.setText(""); //清空密码文本框
+
+            }
+        });
+
+        btnclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();           //退出当前程序
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnLogin:
-                Intent intent = new Intent(Login.this,MainActivity.class);
-                PwdDAO pwdDAO = new PwdDAO(Login.this);
-                //判断是否有密码表及密码
-                if((pwdDAO.getCount()==0 | pwdDAO.find().getPassword().isEmpty()) && txtlogin.getText().toString().isEmpty()){
-                    startActivity(intent);          //启动主Activity
-                }else if(pwdDAO.find().getPassword().equals(txtlogin.getText().toString())){         //判断输入的密码是否与数据库中的密码一致
-                    startActivity(intent);
-                } else {
-                    //弹出信息提示
-                    Toast.makeText(Login.this,"请输入正确的密码！",Toast.LENGTH_SHORT).show();
-                }
-                txtlogin.setText("");           //清空密码文本框
-                break;
-            case R.id.btnClose:
-                finish();
-                break;          //退出当前程序
-        }
-    }
+
 }

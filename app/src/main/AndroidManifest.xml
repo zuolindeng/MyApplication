@@ -10,12 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
+
+        </activity>
+        <activity android:name=".activity.Accountflag"/>
+        <activity android:name=".activity.AddInaccount"/>
+        <activity android:name=".activity.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.Showinfo"/>
+        <activity android:name=".activity.FlagManage"/>
+        <activity android:name=".activity.Inaccountinfo"/>
+        <activity android:name=".activity.InfoManage"/>
+        <activity android:name=".activity.Sysset"/>
     </application>
 
 </manifest>

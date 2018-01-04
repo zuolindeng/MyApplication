@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.apple.myapplication.model.Tb_flag;
 import com.example.apple.myapplication.model.Tb_pwd;
 
 /**
@@ -16,12 +17,27 @@ public class PwdDAO {
     public PwdDAO(Context context){
         helper = new DBOpenHelper(context);
     }
+
     /*
-     查询收入信息
+     添加密码
+     */
+    public void add(Tb_pwd tb_pwd){
+        db = helper.getWritableDatabase();
+        db.execSQL("insert into tb_pwd (password) values (?)",new Object[]{tb_pwd.getPassword()});
+    }
+    /*
+     更新密码
+     */
+    public void update(Tb_pwd tb_pwd){
+        db = helper.getWritableDatabase();
+        db.execSQL("update tb_pwd set password = ?",new Object[]{tb_pwd.getPassword()});
+    }
+    /*
+     查找密码
      */
     public Tb_pwd find(){
-        db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from tb_psw",null);
+        db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select password from tb_pwd",null);
         if(cursor.moveToNext()){
             return new Tb_pwd(cursor.getString(cursor.getColumnIndex("password")));
         }
